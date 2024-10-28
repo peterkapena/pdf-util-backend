@@ -36,17 +36,30 @@ const upload = multer({ storage });
 app.post(
     '/upload',
     upload.single('pdfFile'),
-    (req: Request, res: Response, _next: NextFunction): void => {
-        if (req.file) {
+    async (req: Request, res: Response, _next: NextFunction): Promise<void> => {
+        const id = req.query.id as string;
+        let filename = req.file?.filename;
+
+        try {
+            if (id) {
+                // If an ID is provided, override the filename to use the ID
+                filename = `${id}.pdf`;
+                const targetPath = path.join(uploadDir, filename);
+
+                // Move the uploaded file to the target path, replacing if it exists
+                await fs.move(req.file!.path, targetPath, { overwrite: true });
+            }
+
             res.json({
                 message: 'PDF file uploaded successfully!',
-                filePath: `/${uploadsStr}/${req.file.filename}`
+                filePath: `/${uploadsStr}/${filename}`,
             });
-        } else {
-            res.status(400).json({ error: 'No file uploaded' });
+        } catch (error) {
+            res.status(500).json({ error: 'Error processing the file' });
         }
     }
 );
+
 
 app.get('/download/:fileNumber', (req: Request, res: Response) => {
     const fileNumber = req.params.fileNumber;
