@@ -2,11 +2,13 @@
   "name": "pdf-util-backend",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "compile": "tsc --watch",
     "build": "tsc -p tsconfig.json",
-    "start": "nodemon --env-file=.env.development dist/index.js",
-    "test": "jest"
+    "start": "nodemon dist/index.js",
+    "test": "jest",
+    "delete_uploads": "rm uploads/ -fr && rm dist/uploads/ -fr"
   },
   "author": "",
   "license": "ISC",
