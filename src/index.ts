@@ -3,6 +3,7 @@ import multer, { StorageEngine } from 'multer';
 import fs from 'fs-extra';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import cors from 'cors';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -11,6 +12,8 @@ const uploadDir = path.join(__dirname, uploadsStr);
 
 const app = express();
 const port = 3000;
+
+app.use(cors());
 
 const storage: StorageEngine = multer.diskStorage({
     destination: async (_req: Request, _file: Express.Multer.File, cb) => {
@@ -34,7 +37,6 @@ app.post(
     '/upload',
     upload.single('pdfFile'),
     (req: Request, res: Response, _next: NextFunction): void => {
-        debugger
         if (req.file) {
             res.json({
                 message: 'PDF file uploaded successfully!',
@@ -59,4 +61,4 @@ app.get('/download/:fileNumber', (req: Request, res: Response) => {
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
-});
+}); 
