@@ -1,0 +1,30 @@
+{
+  "name": "pdf-util-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "compile": "tsc --watch",
+    "build": "tsc -p tsconfig.json",
+    "start": "nodemon --env-file=.env.development dist/index.js",
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/fs-extra": "^11.0.4",
+    "@types/multer": "^1.4.12",
+    "class-validator": "^0.14.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "express": "^4.21.1",
+    "fs-extra": "^11.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^3.1.7",
+    "path": "^0.12.7"
+  }
+}
