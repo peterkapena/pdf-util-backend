@@ -2,7 +2,8 @@
 
 #compiled
 /dist
-
+/uploads
+*pdf
 # dependencies
 /node_modules
 /.pnp
